@@ -8,14 +8,18 @@ export const getProducts = async (
   res: Response
 ): Promise<void> => {
   try {
-    const search = req.query.search?.toString();
+    // If search is undefined, set it to an empty string.
+    const search = req.query.search?.toString() || "";
+
+    // Prisma query where 'contains' expects a string, not 'string | undefined'.
     const products = await prisma.products.findMany({
       where: {
         name: {
-          contains: search,
+          contains: search,  // search is guaranteed to be a string
         },
       },
     });
+
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: "Error retrieving products" });

@@ -1,60 +1,29 @@
+import { PrismaClient, type ExpenseByCategory } from "@prisma/client";  // Importing the Prisma-generated type
 import type { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const getDashboardMetrics = async (
+export const getExpensesByCategory = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const popularProducts = await prisma.products.findMany({
-      take: 15,
-      orderBy: {
-        stockQuantity: "desc",
-      },
-    });
-    const salesSummary = await prisma.salesSummary.findMany({
-      take: 5,
+    const expenseByCategorySummaryRaw = await prisma.expenseByCategory.findMany({
       orderBy: {
         date: "desc",
       },
     });
-    const purchaseSummary = await prisma.purchaseSummary.findMany({
-      take: 5,
-      orderBy: {
-        date: "desc",
-      },
-    });
-    const expenseSummary = await prisma.expenseSummary.findMany({
-      take: 5,
-      orderBy: {
-        date: "desc",
-      },
-    });
-    const expenseByCategorySummaryRaw = await prisma.expenseByCategory.findMany(
-      {
-        take: 5,
-        orderBy: {
-          date: "desc",
-        },
-      }
-    );
+
+    // Explicitly defining the type for 'item' as 'ExpenseByCategory'
     const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
-      (item) => ({
+      (item: ExpenseByCategory) => ({
         ...item,
-        amount: item.amount.toString(),
+        amount: item.amount.toString(),  // Ensure amount is converted to string
       })
     );
 
-    res.json({
-      popularProducts,
-      salesSummary,
-      purchaseSummary,
-      expenseSummary,
-      expenseByCategorySummary,
-    });
+    res.json(expenseByCategorySummary);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving dashboard metrics" });
+    res.status(500).json({ message: "Error retrieving expenses by category" });
   }
 };
