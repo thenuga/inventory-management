@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, type ExpenseByCategory } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -15,8 +15,10 @@ export const getExpensesByCategory = async (
         },
       }
     );
+
+    // Explicitly defining the type for item
     const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
-      (item) => ({
+      (item: ExpenseByCategory) => ({
         ...item,
         amount: item.amount.toString(),
       })
