@@ -8,14 +8,17 @@ export const getExpensesByCategory = async (
   res: Response
 ): Promise<void> => {
   try {
-    const expenseByCategorySummaryRaw = await prisma.expenseByCategory.findMany({
-      orderBy: { date: "desc" },
-    });
+    const expenseByCategorySummaryRaw =
+      await prisma.expenseByCategory.findMany({
+        orderBy: { date: "desc" },
+      });
 
-    const expenseByCategorySummary = expenseByCategorySummaryRaw.map((item) => ({
-      ...item,
-      amount: item.amount.toString(),
-    }));
+    const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
+      (item: (typeof expenseByCategorySummaryRaw)[number]) => ({
+        ...item,
+        amount: item.amount.toString(),
+      })
+    );
 
     res.json(expenseByCategorySummary);
   } catch (error) {
