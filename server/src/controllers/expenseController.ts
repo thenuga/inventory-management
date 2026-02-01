@@ -1,8 +1,7 @@
-import { PrismaClient, type ExpenseByCategory } from "@prisma/client";  // Importing the Prisma-generated type
+import { PrismaClient, type ExpenseByCategory } from "@prisma/client";  // Importing dkkekthe Prisma-generated type
 import type { Request, Response } from "express";
 
 const prisma = new PrismaClient();
-
 export const getDashboardMetrics = async (
   req: Request,
   res: Response
@@ -36,20 +35,21 @@ export const getDashboardMetrics = async (
       },
     });
 
-    const expenseByCategorySummaryRaw = await prisma.expenseByCategory.findMany({
-      take: 5,
-      orderBy: {
-        date: "desc",
-      },
-    });
+    const expenseByCategorySummaryRaw: ExpenseByCategory[] =
+  await prisma.expenseByCategory.findMany({
+    take: 5,
+    orderBy: {
+      date: "desc",
+    },
+  });
 
-    // Explicitly defining the type for 'item' as 'ExpenseByCategory'
-    const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
-      (item: ExpenseByCategory) => ({
-        ...item,
-        amount: item.amount.toString(),  // Ensure amount is converted to string
-      })
-    );
+const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
+  (item) => ({
+    ...item,
+    amount: item.amount.toString(),
+  })
+);
+
 
     res.json({
       popularProducts,

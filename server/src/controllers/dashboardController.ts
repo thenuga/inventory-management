@@ -1,4 +1,4 @@
-import { PrismaClient, type ExpenseByCategory } from "@prisma/client";  // Importing the Prisma-generated type
+import { PrismaClient, type ExpenseByCategory } from "@prisma/client";
 import type { Request, Response } from "express";
 
 const prisma = new PrismaClient();
@@ -8,17 +8,17 @@ export const getExpensesByCategory = async (
   res: Response
 ): Promise<void> => {
   try {
-    const expenseByCategorySummaryRaw = await prisma.expenseByCategory.findMany({
-      orderBy: {
-        date: "desc",
-      },
-    });
+    const expenseByCategorySummaryRaw: ExpenseByCategory[] =
+      await prisma.expenseByCategory.findMany({
+        orderBy: {
+          date: "desc",
+        },
+      });
 
-    // Explicitly defining the type for 'item' as 'ExpenseByCategory'
     const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
-      (item: ExpenseByCategory) => ({
+      (item) => ({
         ...item,
-        amount: item.amount.toString(),  // Ensure amount is converted to string
+        amount: item.amount.toString(),
       })
     );
 
