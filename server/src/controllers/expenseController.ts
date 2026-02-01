@@ -35,20 +35,16 @@ export const getDashboardMetrics = async (
       },
     });
 
-    const expenseByCategorySummaryRaw: ExpenseByCategory[] =
-  await prisma.expenseByCategory.findMany({
-    take: 5,
-    orderBy: {
-      date: "desc",
-    },
-  });
+   const expenseByCategorySummaryRaw = await prisma.expenseByCategory.findMany({
+  take: 5,
+  orderBy: { date: "desc" },
+});
 
-const expenseByCategorySummary = expenseByCategorySummaryRaw.map(
-  (item) => ({
-    ...item,
-    amount: item.amount.toString(),
-  })
-);
+const expenseByCategorySummary = expenseByCategorySummaryRaw.map((item) => ({
+  ...item,
+  amount: item.amount.toString(),
+}));
+
 
 
     res.json({
