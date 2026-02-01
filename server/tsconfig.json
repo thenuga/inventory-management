@@ -1,0 +1,60 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // ===============================
+    // File Layout
+    // ===============================
+    // "rootDir": "./src", // optional – enable if you move source files into /src
+    "outDir": "./dist",
+
+    // ===============================
+    // Module & Resolution (IMPORTANT)
+    // ===============================
+    "module": "NodeNext",           // Enables native ES Modules (ESM)
+    "moduleResolution": "nodenext", // Required for ESM + Node.js resolution
+    "target": "esnext",             // Allows modern JS features
+
+    // ===============================
+    // Node.js Environment Support
+    // ===============================
+    "types": ["node"],              // ✅ FIX: Enables fs, path, __dirname, etc.
+    // "lib": ["esnext"],            // Optional – Node already covers this
+    // Run: npm install -D @types/node
+
+    "resolveJsonModule": true,      // Allows importing .json files
+
+    // ===============================
+    // Output & Debugging
+    // ===============================
+    "sourceMap": true,              // Helpful for debugging
+    "declaration": true,            // Generates .d.ts files
+    "declarationMap": true,
+
+    // ===============================
+    // Stricter Type Checking
+    // ===============================
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // ===============================
+    // Style & Safety
+    // ===============================
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // ===============================
+    // Recommended for ESM Projects
+    // ===============================
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,   // Required for NodeNext correctness
+    "isolatedModules": true,        // Needed for ts-node & bundlers
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
+}
