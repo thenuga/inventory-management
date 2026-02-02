@@ -6,6 +6,7 @@ import { Archive, CircleDollarSign, Layout, Clipboard, LucideIcon, Menu, Sliders
 import { usePathname } from "next/navigation";
 import React, { use } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface SidebarLinkProps {
   href: string;
@@ -69,7 +70,14 @@ const Sidebar = () => {
     <div className= {sidebarClassNames}>
       {/* TOP LOGO */}
       <div className={`flex gap-3 justify-between md:justify-normal items-center pt-8 ${isSidebarCollapsed ? "px-5" : "px-8"}`}>
-        <div>logo</div>
+        <Image
+                      src="https://s3-inventmagemnt.s3.us-east-1.amazonaws.com/logo.png"
+                      alt="edstock-logo"
+                      width={27}
+                      height={27}
+                      className="rounded-w8"
+                    />  
+
         <h1 className={`${isSidebarCollapsed ? "hidden" : "block"} font-extrabold text-2xl`}>EDSTOCK</h1>
         <button
           type="button"

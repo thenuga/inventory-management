@@ -71,7 +71,14 @@ const Navbar = () => {
 
         <div className="flex items-center gap-3 cursor-pointer">
           <div className="w-9 h-9">
-            {/* Replace with an actual image */}
+             <Image
+                                  src="https://s3-inventmagemnt.s3.us-east-1.amazonaws.com/logo.png"
+                                  alt="edstock-logo"
+                                  width={27}
+                                  height={27}
+                                  className="rounded-w8"
+                                />  
+          
             
           </div>
           <span className="font-semibold">Ed Roh</span>
