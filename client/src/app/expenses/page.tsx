@@ -3,7 +3,7 @@
 import { ExpenseByCategorySummary, useGetExpensesByCategoryQuery } from "@/state/api";
 import { useMemo, useState } from "react";
 import Header from "../(components)/Header";
-import { ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Tooltip as RechartsTooltip, Legend, Cell } from "recharts";
 import { Tooltip } from "@mui/material";
 
 
@@ -170,7 +170,7 @@ const Expenses = () => {
                   )
                 )}
               </Pie>
-              <Tooltip/>
+              <RechartsTooltip />
               <Legend />
             </PieChart>
           </ResponsiveContainer>
